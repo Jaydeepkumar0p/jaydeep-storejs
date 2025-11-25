@@ -31,10 +31,12 @@ app.use("/api/category", categoryRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
 
+// In index.js
 if(process.env.NODE_ENV=="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")));
 
-    app.get("*",(req,res)=>{
+    // Or use this (regex):
+    app.get(/(.*)/,(req,res)=>{ 
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
     })
 }

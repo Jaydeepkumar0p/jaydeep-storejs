@@ -164,7 +164,6 @@ const Navigation = () => {
             }`}
           >
             <div className="flex flex-col gap-2 ml-2 border-l-2 border-orange-500/30 pl-4 py-2">
-              <NavItem to="/admin/dashboard" icon={AiOutlineDashboard} label="Dashboard" />
               <NavItem to="/admin/productlist" icon={AiOutlineTag} label="Products" />
               <NavItem to="/admin/category" icon={AiOutlineSetting} label="Categories" />
               <NavItem to="/admin/orderlist" icon={AiOutlineContainer} label="Orders" />
