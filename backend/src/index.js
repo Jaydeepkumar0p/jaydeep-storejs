@@ -1,10 +1,10 @@
-
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import Connection from "./config/conn.js";
 import path from "path";
+import fs from "fs";
 
 import userAuthRputes from "./routes/user.auth.route.js";
 import productRoute from "./routes/product.route.js";
@@ -16,10 +16,22 @@ const __dirname = path.resolve();
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}));
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, origin);
+      }
+      return callback(new Error("Not allowed by CORS"), false);
+    },
+    credentials: true,
+  })
+);
 
 app.use('/api/order/stripe-webhook', express.raw({ type: 'application/json' }));
 
@@ -32,14 +44,19 @@ app.use("/api/category", categoryRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
 
-// In index.js
-if(process.env.NODE_ENV=="production"){
-    app.use(express.static(path.join(__dirname,"../frontend/dist")));
-
-    // Or use this (regex):
-    app.get(/(.*)/,(req,res)=>{ 
-        res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
-    })
+ const shouldServeFrontend = process.env.SERVE_FRONTEND === "true";
+if (shouldServeFrontend) {
+  const distPath = path.join(__dirname, "../frontend/dist");
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath));
+    app.get(/(.*)/, (req, res) => {
+      res.sendFile(path.join(distPath, "index.html"));
+    });
+  } else {
+    console.warn(
+      "SERVE_FRONTEND=true but frontend/dist not found. Static serving skipped."
+    );
+  }
 }
 
 const PORT = process.env.PORT || 5000;
