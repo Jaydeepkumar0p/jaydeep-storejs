@@ -8,4 +8,7 @@ export default defineConfig({
    build: {
     chunkSizeWarningLimit: 1600, // Add this line
   },
+  css: {
+    devSourcemap: false // Disable sourcemaps in development
+  }
 })
