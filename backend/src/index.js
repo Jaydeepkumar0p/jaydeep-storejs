@@ -31,11 +31,11 @@ app.use("/api/category", categoryRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
 
- if(process.env.NODE_ENV=="production"){
+if(process.env.NODE_ENV=="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")));
 
-
-    app.get("/*",(req,res)=>{
+    // Using a regular expression to safely catch all non-API route
+    app.get(/^(?!\/api).*/, (req,res)=>{ 
         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
     })
 }
