@@ -1,34 +1,20 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
-export const axiosInstance = axios.create({
-  baseURL:
-    import.meta.env.MODE === "development"
-      ? "http://localhost:5000/api/user"
-      : "/api",
-  withCredentials: true,
-});
+// Allow overriding the backend host via VITE_BACKEND_URL (e.g. https://api.example.com)
+const backendBaseUrl =
+  import.meta.env.VITE_BACKEND_URL?.replace(/\/$/, "") ??
+  (import.meta.env.MODE === "development" ? "http://localhost:5000" : "");
 
-export const axiosInstanceCategory = axios.create({
-  baseURL:
-    import.meta.env.MODE === "development"
-      ? "http://localhost:5000/api/category"
-      : "/api/category",
-  withCredentials: true,
-});
+const buildBaseUrl = (path) => `${backendBaseUrl}/api${path}`;
 
-export const axiosInstanceProduct = axios.create({
-  baseURL:
-    import.meta.env.MODE === "development"
-      ? "http://localhost:5000/api/product"
-      : "/api/product",
-  withCredentials: true,
-});
+const createInstance = (path) =>
+  axios.create({
+    baseURL: buildBaseUrl(path),
+    withCredentials: true,
+  });
 
-
-export const axiosInstanceCart = axios.create({
-  baseURL:
-    import.meta.env.MODE === "development"
-      ? "http://localhost:5000/api/order"
-      : "/api/order",
-  withCredentials: true,
-});
+export const axiosInstance = createInstance("/user");
+export const axiosInstanceCategory = createInstance("/category");
+export const axiosInstanceProduct = createInstance("/product");
+export const axiosInstanceCart = createInstance("/order");
