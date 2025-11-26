@@ -3,34 +3,34 @@ import asyncHandler from "../config/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import { genrateToken } from "../config/jwt.js";
 
+
 export const createUser=asyncHandler(async(req,res)=>{
     const {email,password,username}=req.body;
     try{
         if(!username || !email || !password){
             res.status(400).json({message:"All fields are required"});
-            return; // <-- FIX: Stop execution after sending error response
+           
         }
         const existingUser=await User.findOne({email});
         if(existingUser){
             res.status(400).json({message:"User already exists"});
-            return; // <-- FIX: Stop execution after sending error response
+           
         }
         const salt =await bcrypt.genSalt(10);
         const hashedPassword=await bcrypt.hash(password,salt);
         const newUser=new User({username,email,password:hashedPassword});
-        
-        if(newUser){
-         genrateToken(res,newUser._id);
-           await newUser.save();
-         res.status(201).json({message:"User created successfully",_id:newUser._id,email:newUser.email,isAdmin:newUser.isAdmin,username:newUser.username});
-        }
-        // If newUser fails to save for some reason, the outer catch block will handle it.
+       if(newUser){
+        genrateToken(res,newUser._id);
+         await newUser.save();
+        res.status(201).json({message:"User created successfully",user:newUser,_id:newUser._id,email:newUser.email,isAdmin:newUser.isAdmin,username:newUser.username});
+       }
 
     }
     catch(err){
         res.status(500).json({message:"Error while creating user",error:err.message});
     }
-})
+}
+)
 
 export const loginUser=asyncHandler(async(req,res)=>{
     const {email,password}=req.body;
@@ -38,17 +38,16 @@ export const loginUser=asyncHandler(async(req,res)=>{
         const existingUser=await User.findOne({email});
         if(!existingUser){
             res.status(400).json({message:"User not found, please sign up"});
-            return; // <-- Added for consistency, though error handling might cover it
         }
         const isPasswordCorrect =await bcrypt.compare(password,existingUser.password);
         if(!isPasswordCorrect){
             res.status(400).json({message:"Invalid email or password"});
-            return; // <-- Added for consistency
         }
         if(existingUser && isPasswordCorrect){
             genrateToken(res,existingUser._id);
-            res.status(200).json({message:"User logged in successfully",_id:existingUser._id,email:existingUser.email,isAdmin:existingUser.isAdmin,username:existingUser.username});
+            res.status(200).json({message:"User logged in successfully",user:existingUser,_id:existingUser._id,email:existingUser.email,isAdmin:existingUser.isAdmin,username:existingUser.username});
         }
+
     }
     catch(err){
         res.status(500).json({message:"Error while logging in",error:err.message});
