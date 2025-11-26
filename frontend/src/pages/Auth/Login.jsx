@@ -20,6 +20,8 @@ const Login = () => {
     });
   };
 
+  console.log(setformdat);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formdata.email || !formdata.password) {
