@@ -1,10 +1,10 @@
 
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import Connection from "./config/conn.js";
 import path from "path";
 import express from "express";
+import dotenv from "dotenv";
 
 import userAuthRputes from "./routes/user.auth.route.js";
 import productRoute from "./routes/product.route.js";
