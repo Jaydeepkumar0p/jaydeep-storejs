@@ -117,3 +117,14 @@ Sweet CRUD operations
 Purchase logic
 
 High test coverage for backend services
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142219" src="https://github.com/user-attachments/assets/4f1f29f1-cc40-4800-ad39-e7a23c67bde3" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142240" src="https://github.com/user-attachments/assets/f3af6ea6-3285-4984-a27b-a84bead69498" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142306" src="https://github.com/user-attachments/assets/0b7507ff-287b-4de4-9769-4da736b400a7" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142559" src="https://github.com/user-attachments/assets/3541140e-b859-48b9-95bd-3f0d35b02fe7" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142621" src="https://github.com/user-attachments/assets/ad8b6348-7b8a-4526-999c-94ec42bc9830" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142649" src="https://github.com/user-attachments/assets/c1bdaf34-0a41-42ed-979d-d98eebd41086" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142701" src="https://github.com/user-attachments/assets/a456b80f-f8fc-4d81-8a6d-9f69fb76e3bd" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142829" src="https://github.com/user-attachments/assets/33a3fa09-f18b-457d-b62d-1ccd81118667" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142814" src="https://github.com/user-attachments/assets/3fdf0e96-1946-4708-b8e2-3adfd7d1a4c4" />
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 142844" src="https://github.com/user-attachments/assets/4dbfac3f-4fa0-46a7-83ae-d913457b69fd" />
+<img width="1920" height="1032" alt="Screenshot 2025-12-14 142737" src="https://github.com/user-attachments/assets/91740115-025e-4342-9add-b453ae6d7b5b" />
